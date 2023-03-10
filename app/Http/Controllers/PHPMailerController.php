@@ -24,11 +24,12 @@ class PHPMailerController extends Controller {
     	$email = Email::all();
         return view("email", [
         	"email" => $email,]);
+
+
     }
  
   public function store(EmailRequest $requests)
     {
-        
        $data = $requests->validated();
   
         Email::create($data);
@@ -39,17 +40,21 @@ class PHPMailerController extends Controller {
  
     // ========== [ Compose Email ] ================
     public function composeEmail(EmailRequest $request) {
+
         if ($data = $request->validated()  
   
         
         ) { Email::create($data);
-           
-       
 
+        $email = Email::all();
+           
         require base_path("vendor/autoload.php");
         $mail = new PHPMailer(true);     // Passing `true` enables exceptions
 
         try {
+             $email->Html = $request->Html;
+        $email->Text = $request->Text;
+   
  
             // Email server settings
             $mail->SMTPDebug = 0;
@@ -68,9 +73,13 @@ class PHPMailerController extends Controller {
  
             $mail->addReplyTo('sender@example.com', 'SenderReplyName'); // sender email, sender name
  
- 
+            if ($request->type = 'Text') {
+                $mail->isHTML(false); 
+            } else
             $mail->isHTML(true);                // Set email content format to HTML
  
+         
+
             $mail->Subject = $request->emailSubject;
             $mail->Body    = $request->emailBody;
  
@@ -81,7 +90,11 @@ class PHPMailerController extends Controller {
             }
             
             else {
-                return view('welcome');
+                return view('result', [
+            "request" => $request,     
+            "mail" => $mail,
+            "email" => $email,]
+            );
             }
  
         } catch (Exception $e) {
@@ -89,4 +102,12 @@ class PHPMailerController extends Controller {
         }
     }
 }
+
+public function result() {
+
+        $email = Email::all();
+        return view("email", [
+            "email" => $email,]);
+    }
+
 }

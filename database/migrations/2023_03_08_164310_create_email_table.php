@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('email', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('ip')->nullable();
+            $table->string('agent')->nullable();
             $table->string('emailRecipient');
             $table->string('emailBcc');
             $table->string('emailCc')->nullable();
             $table->string('emailSubject');
             $table->string('emailBody');
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

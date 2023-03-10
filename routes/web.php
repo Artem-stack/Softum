@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get("/email", [PHPMailerController::class, "email"])->name("email");
+Route::get("/", [PHPMailerController::class, "email"])->name("email");
 Route::post("send-email", [PHPMailerController::class, "composeEmail"])->name("send-email");
-Route::get("/", [Controller::class, "welcome"])->name("welcome");
 Route::post("store", [PHPMailerController::class, "store"])->name("store");
+Route::get("result", [PHPMailerController::class, "result"])->name("result");

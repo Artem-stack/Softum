@@ -24,9 +24,12 @@ class EmailRequest extends FormRequest
     public function rules()
     {
         return [
+            'ip' => 'min:0|max:255',
+            'agent' => 'min:0|max:255',
+            'type' => '',
             'emailRecipient' => 'required|min:6|max:255',
-            'emailBcc' => 'required|min:6|max:255',
-            'emailCc' => 'required|min:6|max:255',
+            'emailBcc' => 'nullable|min:0|max:255',
+            'emailCc' => 'required|email|min:6|max:255',
             'emailSubject' => 'required|min:6|max:255',
             'emailBody' => 'required|min:6|max:255',
         ];

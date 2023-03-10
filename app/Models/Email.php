@@ -13,6 +13,9 @@ class Email extends Model
     protected $table = 'email';
 
     protected $fillable = [
+    	'ip',
+        'agent',
+        'type',
         'emailRecipient',
         'emailBcc',
         'emailCc',
