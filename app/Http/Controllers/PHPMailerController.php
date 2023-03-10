@@ -12,12 +12,6 @@ use App\Http\Requests\EmailRequest;
  
 class PHPMailerController extends Controller {
  
-  public function welcome() {
-
-       
-        return view("welcome"
-           );
-    }
     // =============== [ Email ] ===================
     public function email() {
 
@@ -28,14 +22,6 @@ class PHPMailerController extends Controller {
 
     }
  
-  public function store(EmailRequest $requests)
-    {
-       $data = $requests->validated();
-  
-        Email::create($data);
-
-        return back()->with("success", "Email has been sent.");
-    }
 
  
     // ========== [ Compose Email ] ================
